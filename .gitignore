@@ -1,0 +1,5 @@
+env/include
+env/Lib
+env/Scripts
+
+privacy_info.py
