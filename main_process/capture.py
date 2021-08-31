@@ -1,5 +1,5 @@
 """도서를 캡쳐해서 저장하는 프로세스 모듈"""
-import pyautogui, time, keyboard, datetime
+import pyautogui, time, keyboard, datetime, contextlib
 
 
 class CaptureProcess:
@@ -22,10 +22,25 @@ class CaptureProcess:
 
     def __init__(self, book_name, start_point=0, scan_range=150):
         """book_name인자는 영어여야 합니다."""
+        if start_point:
+            print(f"[{start_point}]부터 작업을 시작합니다")
+
         time.sleep(8)
         self.book_name = book_name
         self.start_point = start_point
         self.scan_range = scan_range
+
+    @contextlib.contextmanager
+    def time_logger(self, iter_count):
+        start = time.time()
+        try:
+            yield
+        finally:
+            term = time.time() - start
+            now = datetime.datetime.now()
+            print(
+                f"[{now.day}일 {now.hour}시{now.minute}분{now.second}초] ({iter_count+1}/{self.scan_range})남은 페이지:{self.scan_range-(iter_count+1)} 남은시간({term*(self.scan_range-iter_count-1)/60:.0f}분) -- {self.book_name} [{iter_count+1}]"
+            )
 
     def loop(self):
         """페이지를 넘기면서 프로세스를 반복합니다."""
@@ -35,17 +50,12 @@ class CaptureProcess:
             pyautogui.press("right")
 
         for i in range(self.scan_range):
-            start = time.time()
-            self.capture(loop=i)
-            time.sleep(1 + i * 0.04)
-            self.save(file_name=f"{self.book_name} [{i+1}]")
-            pyautogui.press("right")
-            time.sleep(0.5)
-            term = time.time() - start
-            now = datetime.datetime.now()
-            print(
-                f"[{now.day}일 {now.hour}시{now.minute}분{now.second}초] ({i+1}/{count})남은 페이지:{count-(i+1)} 남은시간({term*(count-i-1)/60:.0f}분) -- {self.book_name} [{i+1}]"
-            )
+            with self.time_logger(iter_count=i):
+                self.capture(now_loop=i)
+                time.sleep(1 + i * 0.04)
+                self.save(file_name=f"{self.book_name} [{i+1+self.start_point}]")
+                pyautogui.press("right")
+                time.sleep(0.5)
 
     def run(self, file_name):
         """프로세스를 통해 이미지를 캡쳐-저장합니다."""
@@ -67,14 +77,14 @@ class CaptureProcess:
         pyautogui.click(**self.buttons["close"])
         time.sleep(0.5)
 
-    def capture(self, loop):
+    def capture(self, now_loop):
         pyautogui.hotkey("win", "shiftleft", "s")
         time.sleep(2)
         pyautogui.click(**self.buttons["capture_mode"])
         time.sleep(0.5)
         pyautogui.moveTo(**self.buttons["capture_start_point"])
         pyautogui.dragTo(**self.buttons["capture_end_point"], duration=2, button="left")
-        time.sleep(4 + loop * 0.04)
+        time.sleep(4 + now_loop * 0.04)
         # 캡쳐 완료 후 결과 누르기 캡쳐 결과는 6초 후에 사라짐
         pyautogui.moveTo(**self.buttons["capture_result"])
         pyautogui.mouseDown()

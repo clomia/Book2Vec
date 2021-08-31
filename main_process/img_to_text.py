@@ -4,7 +4,7 @@ import pyautogui, keyboard, time
 class OcrProcess:
 
     buttons = {  # * 순서에 의미 있음
-        "edit_btn": {"x": -414, "y": 329},
+        "edit_btn": {"x": 1262, "y": 360},  # * 가변 위치
         "to_pdf_btn": {"x": 116, "y": 383},
         "resist_btn": {"x": 568, "y": 542},
         "save_btn": {"x": -840, "y": 857},
@@ -12,9 +12,6 @@ class OcrProcess:
         "path_setting": {"x": 417, "y": 857},
         "apply_btn": {"x": 847, "y": 858},
     }
-
-    def __init__(self):
-        pass
 
     def transe_pdf(self, path=r"C:\Users\USER\Desktop\Novels\data"):
         pyautogui.hotkey("win", "s")
@@ -27,7 +24,7 @@ class OcrProcess:
         pyautogui.click(**self.buttons["to_pdf_btn"])
         time.sleep(0.5)
         pyautogui.click(**self.buttons["resist_btn"])
-        time.sleep(0.5)
+        time.sleep(8)
         pyautogui.click(**self.buttons["save_window"])  # 창 선택용
         keyboard.press_and_release("ctrl+L")
         pyautogui.write(path, interval=0.01)
