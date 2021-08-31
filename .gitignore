@@ -1,5 +1,6 @@
 env/include
 env/Lib
 env/Scripts
+data/*
 
 privacy_info.py
