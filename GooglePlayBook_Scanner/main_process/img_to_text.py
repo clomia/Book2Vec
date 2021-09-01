@@ -1,4 +1,7 @@
 import pyautogui, keyboard, time
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class OcrProcess:
@@ -13,7 +16,7 @@ class OcrProcess:
         "apply_btn": {"x": 847, "y": 858},
     }
 
-    def transe_pdf(self, path=r"C:/Users/USER/Desktop/AIB-Section4-Project/GooglePlayBook_Scanner/data/"):
+    def transe_pdf(self, path=f"{BASE_DIR}/GooglePlayBook_Scanner/data/"):
         pyautogui.hotkey("win", "s")
         pyautogui.write("ALPDF")
         time.sleep(1)

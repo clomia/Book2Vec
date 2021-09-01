@@ -1,13 +1,16 @@
 import os, re, sys
+from pathlib import Path
 import privacy_info
 from start import driver, google_login
 from surfing import go_to_url
 from main_process.capture import CaptureProcess
 from main_process.img_to_text import OcrProcess
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 _, *is_last = sys.argv
 
-file_list = os.listdir(r"C:/Users/USER/Desktop/AIB-Section4-Project/GooglePlayBook_Scanner/data/JPG")
+file_list = os.listdir(fr"{BASE_DIR}/GooglePlayBook_Scanner/data/JPG")
 if file_list:
     last_point = max([int(re.sub(r"[^0-9]", "", file_name)) for file_name in file_list])
 else:

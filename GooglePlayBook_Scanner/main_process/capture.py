@@ -1,5 +1,8 @@
 """도서를 캡쳐해서 저장하는 프로세스 모듈"""
 import pyautogui, time, keyboard, datetime, contextlib
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class CaptureProcess:
@@ -91,7 +94,7 @@ class CaptureProcess:
         pyautogui.mouseDown()
         pyautogui.mouseUp()
 
-    def save(self, file_name, path=r"C:/Users/USER/Desktop/AIB-Section4-Project/GooglePlayBook_Scanner/data/JPG"):
+    def save(self, file_name, path=f"{BASE_DIR}/GooglePlayBook_Scanner/data/JPG"):
         """file_name에 한국어는 안됩니다!"""
 
         time.sleep(3.5)

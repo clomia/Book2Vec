@@ -3,4 +3,7 @@ env/Lib
 env/Scripts
 GooglePlayBook_Scanner/data/*
 
+__pycache__/
+*.py[cod]
+
 GooglePlayBook_Scanner/privacy_info.py
