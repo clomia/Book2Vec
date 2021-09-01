@@ -28,4 +28,4 @@ if is_last:
     ocr.transe_pdf()
 
 driver.quit()
-os.system("shutdown -s -f")
+# os.system("shutdown -s -f")
