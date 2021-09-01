@@ -1,6 +1,6 @@
 env/include
 env/Lib
 env/Scripts
-data/*
+GooglePlayBook_Scanner/data/*
 
-privacy_info.py
+GooglePlayBook_Scanner/privacy_info.py
