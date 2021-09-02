@@ -6,11 +6,11 @@ from pathlib import Path
 from ursina import *
 
 # -----------------------------
-from normalization import scaler
+from .normalization import scaler
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-Text.default_font = "src/main_font.ttf"
+Text.default_font = "spatialization/src/main_font.ttf"
 
 
 class VectorGetter:
@@ -41,8 +41,7 @@ class BookBox(Entity):
         super().__init__()
         vector = VectorGetter(title, dir_path=BASE_DIR / "DATA/vectors").vec3
         normalized_vector = scaler.transform([vector])
-        print(f"앙~! {normalized_vector}")
         self.position = Vec3(*normalized_vector[0])
         self.scale = 3
         self.model = "cube"
-        self.texture = load_texture("src/books/인간 본성의 법칙.jpg")
+        self.texture = load_texture(f"src/books/{title}.jpg")
