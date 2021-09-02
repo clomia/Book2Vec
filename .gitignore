@@ -6,3 +6,5 @@ GooglePlayBook_Scanner/data/*
 __pycache__/
 
 GooglePlayBook_Scanner/privacy_info.py
+
+DATA/*
