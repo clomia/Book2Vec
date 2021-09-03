@@ -10,4 +10,6 @@ GooglePlayBook_Scanner/privacy_info.py
 *.jpg
 *.png
 
+!image/*.jpg
+
 DATA/*
