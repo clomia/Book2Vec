@@ -61,7 +61,7 @@ class Preprocessing:
         반환되는 결과값은 corpus 튜플 입니다.
         """
 
-        text_data = self.marge_txts()[: 400 if capacity_limit else None]
+        text_data = self.marge_txts()[: capacity_limit if capacity_limit else None]
         sentence_tokenized_text = self.tokeniztion(text_data)
 
         cleaned = (self.clean_text(sent) for sent in sentence_tokenized_text)
@@ -154,6 +154,6 @@ if __name__ == "__main__":
     # cleaned_corpus = [preprocessing.clean_text(sent) for sent in sentence_tokenized_text]
     # basic_preprocessed_corpus = [preprocessing.clean_grammar(text) for text in cleaned_corpus]
 
-    result = preprocessing.run(capacity_limit=400)
+    result = preprocessing.run(capacity_limit=5000)
     for corpus in result:
         print(corpus)

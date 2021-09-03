@@ -25,5 +25,6 @@ def virtual_space():
         book_box = BookBox(book[:-4])
         print(f"{book}의 3차원 좌표: {book_box.position}")
 
+    window.title = "Book2Vec"
     window.fullscreen = True
     app.run()
